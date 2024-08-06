@@ -1,5 +1,6 @@
 //import { wordlist } from "./eff_large_wordlist.js";
 //import "dotenv/config";
+//import crypto from 'crypto';
 
 class ConvertBase {
   /**
@@ -149,14 +150,11 @@ export class RandomLocal {
    */
   async calculate() {
     return new Promise((resolve, reject) => {
-      const result = Array.from(
-        { length: this.count },
-        () => Math.floor(Math.random() * (7775 - 0 + 1)) + 0
-      );
+      const result = crypto.getRandomValues(new Uint16Array(this.count));      
       if (!result) {
         reject("fail");
       } else {
-        resolve(result);
+        resolve(result.map((x) => x % 7775));
       }
     });
   }

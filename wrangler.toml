@@ -1,5 +1,10 @@
 name = "passphrase-worker"
 compatibility_date = "2024-08-06"
+main = "./src/index.ts"
+
+routes = [
+	{ pattern = "random.daedalist.net/*", zone_name = "daedalist.net" }
+]
 
 # [vars]
 # MY_VAR = "my-variable"
