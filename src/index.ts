@@ -38,7 +38,7 @@ app.get('/', (c) => {
         </head>
         <body>
           <h1>Using the Random Passphrase API</h1>
-          <p>Welcome to the Random Passphrase API! This API generates random passphrases for you to use. In this guide, we'll walk you through how to use the API to generate passphrases.</p>
+          <p>Welcome to the Random Passphrase API! This API generates random passphrases for you to use. In this guide, we'll walk you through how to use the API to generate passphrases. See the source code here: <a href="https://github.com/anaxios/passphrase-worker">GitHub</a></p>
           <h2>Getting Started</h2>
           <p>To use the API, you'll need to make a GET request to one of the following endpoints:</p>
           <ul>
