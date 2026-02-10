@@ -1,8 +1,11 @@
 import { Hono } from 'hono'
+import { cors } from 'hono/cors'
 import { html, raw } from 'hono/html'
 import { Passphrase, RandomLocal, RandomAPI } from './random-words.ts'
 
 const app = new Hono();
+
+app.use('/*', cors());
 
 function numberSanitize(number) {
   return Math.min(Math.floor(Math.abs(number)), 1000) || 6;
