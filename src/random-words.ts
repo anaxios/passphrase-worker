@@ -61,33 +61,11 @@ export class Passphrase {
   }
 }
 
-/**
- * A local random number generator class.
- *
- * This class generates an array of random numbers within a specified range.
- *
- * @class RandomLocal
- * @param {number} count - The number of random numbers to generate.
- */
 export class RandomLocal {
-  /**
-   * Creates an instance of RandomLocal.
-   *
-   * @param {number} count - The number of random numbers to generate.
-   * @memberof RandomLocal
-   */
   constructor(count) {
     this.count = count;
   }
 
-  /**
-   * Generates an array of random numbers within a specified range.
-   *
-   * This method returns a promise that resolves with an array of random numbers.
-   *
-   * @async
-   * @returns {Promise<number[]>} A promise that resolves with an array of random numbers.
-   */
   async calculate() {
     return new Promise((resolve, reject) => {
       const result = crypto.getRandomValues(new Uint16Array(this.count));
@@ -100,21 +78,7 @@ export class RandomLocal {
   }
 }
 
-/**
- * A random number generator class that uses the Random.org API.
- *
- * This class generates an array of random numbers within a specified range using the Random.org API.
- *
- * @class RandomAPI
- * @param {number} count - The number of random numbers to generate.
- */
 export class RandomAPI {
-  /**
-   * Creates an instance of RandomAPI.
-   *
-   * @param {number} count - The number of random numbers to generate.
-   * @memberof RandomAPI
-   */
   constructor(count, token) {
     this.count = count;
     this.url = "https://api.random.org/json-rpc/2/invoke";
@@ -132,14 +96,6 @@ export class RandomAPI {
     };
   }
 
-  /**
-   * Calculates an array of random numbers using the Random.org API.
-   *
-   * This method sends a POST request to the Random.org API with the specified parameters and returns a promise that resolves with an array of random numbers.
-   *
-   * @async
-   * @returns {Promise<number[]>} A promise that resolves with an array of random numbers.
-   */
   async calculate() {
     try {
       const response = await fetch(this.url, {
