@@ -1,4 +1,4 @@
-import { wordlist } from "./wordlist.ts";
+import Wordlist from "./wordlist.ts";
 //import "dotenv/config";
 //import crypto from 'crypto';
 
@@ -16,6 +16,9 @@ class ConvertBase {
     while (intermediate > 0) {
       result.push(this.modifier(intermediate % this.base));
       intermediate = Math.floor(intermediate / this.base);
+    }
+    while (result.length < 5) {
+      result.push(this.modifier(0));
     }
     result.reverse();
     return Number(result.join(""));
@@ -40,23 +43,22 @@ export class Passphrase {
   async roll() {
     const numbers = await new RequestRoll(this.api).calculate();
     const convertedNumbers = numbers.map((x) => {
-      return Number(
-        new ConvertBase(6, x, (a) => a + 1)
-          .convert()
-          .toString()
-          .padStart(5, "1"),
-      );
+      return Number(new ConvertBase(6, x, (a) => a + 1).convert().toString());
     });
 
     const words = new Wordlist().list();
-    let result = [];
-    for (let n of convertedNumbers) {
-      for (let key in words) {
-        if (key === n.toString()) {
-          result.push(words[key]);
-        }
-      }
-    }
+    let result = convertedNumbers.map((x) => {
+      return words[x];
+    });
+    console.log(result);
+    //let result = [];
+    //    for (let n of convertedNumbers) {
+    //      for (let key in words) {
+    //        if (Number(key) === Number(n)) {
+    //          result.push(words[key]);
+    //        }
+    //      }
+    //    }
     return result.join("-");
   }
 }
@@ -68,7 +70,7 @@ export class RandomLocal {
 
   async calculate() {
     return new Promise((resolve, reject) => {
-      const result = crypto.getRandomValues(new Uint16Array(this.count));
+      const result = [...crypto.getRandomValues(new Uint16Array(this.count))];
       if (!result) {
         reject("fail");
       } else {

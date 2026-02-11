@@ -1,4 +1,4 @@
-class Wordlist {
+export default class Wordlist {
   constructor() {
     // prettier-ignore
     this.words = {
